@@ -1,5 +1,6 @@
 from ncclient import manager
 import xmltodict
+import re
 
 
 def create(studentID, routerIP):
@@ -158,6 +159,7 @@ def netconf_edit_config(netconf_config, routerIP):
 
 
 def status(interface_name, routerIP):
+    student_id = re.sub(r'[a-zA-Z]+', '', interface_name)
     m = manager.connect(
     host=routerIP,
     port=830,
@@ -189,11 +191,11 @@ def status(interface_name, routerIP):
             admin_status = interface_state.get('admin-status')
             oper_status = interface_state.get('oper-status')
             if admin_status == 'up' and oper_status == 'up':
-                return f"Interface loopback {interface_name} is enabled (checked by Netconf)"
+                return f"Interface loopback {student_id} is enabled (checked by Netconf)"
             elif admin_status == 'down' and oper_status == 'down':
-                return f"Interface loopback {interface_name} is disabled (checked by Netconf)"
+                return f"Interface loopback {student_id} is disabled (checked by Netconf)"
         else: # no operation-state data
-            return f"No Interface loopback {interface_name} (checked by Netconf)"
+            return f"No Interface loopback {student_id} (checked by Netconf)"
     except:
        print("Error!")
 
