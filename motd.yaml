@@ -1,0 +1,14 @@
+
+- name: Set MOTD Banner
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Configure the MOTD banner
+      # ใช้โมดูลที่ออกแบบมาสำหรับ banner โดยเฉพาะ
+      cisco.ios.ios_banner:
+        banner: motd
+        # รับค่าข้อความจากตัวแปร 'motd_message_text' ที่ Python ส่งมา
+        text: "{{ motd_message_text }}"
+        state: present

@@ -130,11 +130,15 @@ while True:
             method = "netconf"
             responseMessage = "Ok: Netconf"
         else:
-            if not method:
+            if arg_2 == "motd":
+                print("Router IP:", arg_1, "Command:", arg_2)
+                routerIP = arg_1
+                command = arg_2
+            elif not method:
                 print("Error: No method specified")
                 responseMessage = "Error: No method specified"
             elif arg_1[0].isdigit():
-                if arg_2 in ["create", "delete", "enable", "disable", "status"]:
+                if arg_2 in ["create", "delete", "enable", "disable", "status", "motd"]:
                     print("Router IP:", arg_1, "Command:", arg_2)
                     routerIP = arg_1
                     command = arg_2
@@ -179,13 +183,14 @@ while True:
                 responseMessage = restconf_final.disable(studentID, routerIP)
             elif routerIP and command == "status":
                 responseMessage = restconf_final.status(loopback_name, routerIP)
-        
-        # elif command == "gigabit_status":
-        #     responseMessage = netmiko_final.gigabit_status()
-        # elif command == "showrun":
-        #     responseMessage = ansible_final.showrun(studentID)
-        else:
-            pass
+
+        elif command == "gigabit_status":
+            responseMessage = netmiko_final.gigabit_status()
+        elif command == "showrun":
+            responseMessage = ansible_final.showrun(studentID)
+        elif routerIP and command == "motd" and args_list[2]:
+            motd_message = args_list[2]
+            responseMessage = ansible_final.motd(routerIP, motd_message)
             # responseMessage = "Error: No command or unknown command"
         
 # 6. Complete the code to post the message to the Webex Teams room.
