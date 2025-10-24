@@ -1,21 +1,14 @@
 from ncclient import manager
 import xmltodict
 
-m = manager.connect(
-    host="10.0.15.61",
-    port=830,
-    username="admin",
-    password="cisco",
-    hostkey_verify=False
-    )
 
-def create(studentID):
+def create(studentID, routerIP):
     interface_name = f"Loopback{studentID}"
 
-    current_status = status(interface_name)
-    if current_status == "up" or current_status == "down":
+    current_status = status(interface_name, routerIP)
+    if "enable" in current_status or "disable" in current_status:
         print(f"Cannot create: Interface loopback {studentID}  (already exists)")
-        return f"Cannot create: Interface loopback {studentID} "
+        return f"Cannot create: Interface loopback {studentID}"
     
     last_three_digits = studentID[-3:]
     x = int(last_three_digits[0])
@@ -44,23 +37,23 @@ def create(studentID):
     """
 
     try:
-        netconf_reply = netconf_edit_config(netconf_config)
+        netconf_reply = netconf_edit_config(netconf_config, routerIP)
         xml_data = netconf_reply.xml
         print(xml_data)
         if '<ok/>' in xml_data:
-            print(f"Interface loopback {studentID}  is created successfully")
-            return f"Interface loopback {studentID}  is created successfully"
-    except:
-        print("Cannot create: Interface loopback {studentID} ")
+            print(f"Interface loopback {studentID}  is created successfully using Netconf")
+            return f"Interface loopback {studentID}  is created successfully using Netconf"
+    except Exception as e:
+        print(e)
 
 
-def delete(studentID):
+def delete(studentID, routerIP):
     interface_name = f"Loopback{studentID}"
 
-    current_status = status(interface_name)
-    if current_status == "no-return":
+    current_status = status(interface_name, routerIP)
+    if "No" in current_status:
         print(f"Cannot delete: Interface loopback {studentID} (does not exist)")
-        return f"Cannot delete: Interface loopback {studentID} "
+        return f"Cannot delete: Interface loopback {studentID}"
     
     netconf_config = f"""
     <config>
@@ -75,25 +68,25 @@ def delete(studentID):
     """
 
     try:
-        netconf_reply = netconf_edit_config(netconf_config)
+        netconf_reply = netconf_edit_config(netconf_config, routerIP)
         xml_data = netconf_reply.xml
         print(xml_data)
         if '<ok/>' in xml_data:
-            print(f"Interface loopback {studentID}  is deleted successfully")
-            return f"Interface loopback {studentID}  is deleted successfully"
+            print(f"Interface loopback {studentID}  is deleted successfully using Netconf")
+            return f"Interface loopback {studentID}  is deleted successfully using Netconf"
     except:
         print("Error!")
 
 
-def enable(studentID):
+def enable(studentID, routerIP):
     interface_name = f"Loopback{studentID}"
 
-    current_status = status(interface_name)
-    if current_status == "no-return":
+    current_status = status(interface_name, routerIP)
+    if "No" in current_status:
         print(f"Cannot enable: Interface loopback {studentID} (does not exist)")
         return f"Cannot enable: Interface loopback {studentID}"
     
-    if current_status == "up":
+    if "enable" in current_status:
         print(f"Interface loopback {studentID} is enabled successfully")
         return f"Interface loopback {studentID} is enabled successfully"
     
@@ -111,20 +104,20 @@ def enable(studentID):
     """
 
     try:
-        netconf_reply = netconf_edit_config(netconf_config)
+        netconf_reply = netconf_edit_config(netconf_config, routerIP)
         xml_data = netconf_reply.xml
         print(xml_data)
         if '<ok/>' in xml_data:
-            print(f"Interface loopback {studentID} is enabled successfully")
-            return f"Interface loopback {studentID} is enabled successfully"
+            print(f"Interface loopback {studentID} is enabled successfully using Netconf")
+            return f"Interface loopback {studentID} is enabled successfully using Netconf"
     except Exception as e:
         print(e)
 
 
-def disable(studentID):
+def disable(studentID, routerIP):
     interface_name = f"Loopback{studentID}"
 
-    current_status = status(interface_name)
+    current_status = status(interface_name, routerIP)
     if current_status == "no-return":
         print(f"Cannot shutdown: Interface loopback {studentID} (does not exist)")
         return f"Cannot shutdown: Interface loopback {studentID}"
@@ -143,20 +136,35 @@ def disable(studentID):
     """
 
     try:
-        netconf_reply = netconf_edit_config(netconf_config)
+        netconf_reply = netconf_edit_config(netconf_config, routerIP)
         xml_data = netconf_reply.xml
         print(xml_data)
         if '<ok/>' in xml_data:
-            print(f"Interface loopback {studentID} is shutdowned successfully")
-            return f"Interface loopback {studentID} is shutdowned successfully"
+            print(f"Interface loopback {studentID} is shutdowned successfully using Netconf")
+            return f"Interface loopback {studentID} is shutdowned successfully using Netconf"
     except:
         print("Error!")
 
-def netconf_edit_config(netconf_config):
+
+def netconf_edit_config(netconf_config, routerIP):
+    m = manager.connect(
+    host=routerIP,
+    port=830,
+    username="admin",
+    password="cisco",
+    hostkey_verify=False
+    )
     return m.edit_config(target="running", config=netconf_config)
 
 
-def status(interface_name):
+def status(interface_name, routerIP):
+    m = manager.connect(
+    host=routerIP,
+    port=830,
+    username="admin",
+    password="cisco",
+    hostkey_verify=False
+    )
     netconf_filter = f"""
     <filter>
       <interfaces-state xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
@@ -181,11 +189,11 @@ def status(interface_name):
             admin_status = interface_state.get('admin-status')
             oper_status = interface_state.get('oper-status')
             if admin_status == 'up' and oper_status == 'up':
-                return "up"
+                return f"Interface loopback {interface_name} is enabled (checked by Netconf)"
             elif admin_status == 'down' and oper_status == 'down':
-                return "down"
+                return f"Interface loopback {interface_name} is disabled (checked by Netconf)"
         else: # no operation-state data
-            return "no-return"
+            return f"No Interface loopback {interface_name} (checked by Netconf)"
     except:
        print("Error!")
 
