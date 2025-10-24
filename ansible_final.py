@@ -3,10 +3,12 @@ import ansible_runner
 import re
 import os
 
-def showrun(student_id):
+def showrun(student_id, router_ip):
     # read https://www.datacamp.com/tutorial/python-subprocess to learn more about subprocess
+    extra_vars_str = f'student_id={student_id} router_ip={router_ip}'
+    
     command = ['ansible-playbook', 'playbook.yaml', '--extra-vars',
-        f'student_id={student_id}']
+        extra_vars_str]
 
     result = subprocess.run(command, capture_output=True, text=True)
 
@@ -113,10 +115,10 @@ def motd(routerIP, message):
 # -----------------------------------------------------------------
 if __name__ == "__main__":
     
-    TARGET_ROUTER_IP = "10.0.15.62" 
+    TARGET_ROUTER_IP = "10.0.15.61" 
 
     # --- ข้อความ MOTD ที่ต้องการตั้งค่า ---
-    NEW_MOTD_MESSAGE = ("muhihihi")
+    NEW_MOTD_MESSAGE = ("muhihihi muhahaha")
 
     # --- เรียกใช้งานฟังก์ชัน ---
     motd(TARGET_ROUTER_IP, NEW_MOTD_MESSAGE)

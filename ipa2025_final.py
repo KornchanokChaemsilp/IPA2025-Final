@@ -115,7 +115,8 @@ while True:
         # command = match.group(2)
 
         args_string = match.group(2)
-        args_list = args_string.split()
+        args_list = args_string.split(" ", maxsplit=2)
+        print(args_list)
         arg_1 = args_list[0]
         arg_2 = ""
         if len(args_list) > 1:
@@ -130,7 +131,7 @@ while True:
             method = "netconf"
             responseMessage = "Ok: Netconf"
         else:
-            if arg_2 == "motd":
+            if arg_2 in ["motd" , "gigabit_status", "showrun"]:
                 print("Router IP:", arg_1, "Command:", arg_2)
                 routerIP = arg_1
                 command = arg_2
@@ -160,8 +161,16 @@ while True:
         loopback_name = f"Loopback{studentID}"
 
 # 5. Complete the logic for each command
-
-        if method == "netconf":
+        if routerIP and command == "gigabit_status":
+            responseMessage = netmiko_final.gigabit_status(routerIP)
+        elif command == "showrun":
+            responseMessage = ansible_final.showrun(studentID)
+        elif routerIP and command == "motd" and (len(args_list) < 3):
+            responseMessage = netmiko_final.get_motd(routerIP)
+        elif routerIP and command == "motd" and args_list[2]:
+            motd_message = args_list[2]
+            responseMessage = ansible_final.motd(routerIP, motd_message)
+        elif method == "netconf":
             if routerIP and command == "create":
                 responseMessage = netconf_final.create(studentID, routerIP)    
             elif routerIP and command == "delete":
@@ -183,14 +192,6 @@ while True:
                 responseMessage = restconf_final.disable(studentID, routerIP)
             elif routerIP and command == "status":
                 responseMessage = restconf_final.status(loopback_name, routerIP)
-
-        elif command == "gigabit_status":
-            responseMessage = netmiko_final.gigabit_status()
-        elif command == "showrun":
-            responseMessage = ansible_final.showrun(studentID)
-        elif routerIP and command == "motd" and args_list[2]:
-            motd_message = args_list[2]
-            responseMessage = ansible_final.motd(routerIP, motd_message)
             # responseMessage = "Error: No command or unknown command"
         
 # 6. Complete the code to post the message to the Webex Teams room.

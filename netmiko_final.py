@@ -1,19 +1,19 @@
 from netmiko import ConnectHandler
 from pprint import pprint
 
-device_ip = "<!!!REPLACEME with router IP address!!!>"
-username = "admin"
-password = "cisco"
+# device_ip = "<!!!REPLACEME with router IP address!!!>"
+# username = "admin"
+# password = "cisco"
 
-device_params = {
+
+
+def gigabit_status(routerIP):
+    device_params = {
     "device_type": "cisco_ios",
-    "ip": "10.0.15.61",
+    "ip": routerIP,
     "username": "admin",
     "password": "cisco",
-}
-
-
-def gigabit_status():
+    }
     ans_list = []
     with ConnectHandler(**device_params) as ssh:
         up = 0
@@ -52,3 +52,43 @@ def gigabit_status():
         ans += f" -> {up} up, {down} down, {admin_down} administratively down"
         pprint(ans)
         return ans
+
+def get_motd(router_ip):
+    device_params = {
+    "device_type": "cisco_ios",
+    "ip": router_ip,
+    "username": "admin",
+    "password": "cisco",
+    }
+    
+    # คำสั่ง 'show banner motd' จะแสดงเฉพาะเนื้อหาของ MOTD
+    # ซึ่งเหมาะสำหรับ TextFSM มากกว่า 'show run'
+    cmd = 'show banner motd'
+    template_path = 'motd_template.fsm' # ไฟล์ template ที่เราสร้างไว้
+    
+    print(f"\n--- [START] Connecting to {router_ip} ---")
+
+    try:
+        # 1. เชื่อมต่อและดึงข้อมูลด้วย Netmiko
+        with ConnectHandler(**device_params) as ssh:
+            print(f"✅ Connected. Sending command: '{cmd}'")
+            # .strip() เพื่อลบบรรทัดว่างที่ไม่จำเป็นหน้า-หลัง
+            result = ssh.send_command(cmd, use_textfsm=True)
+        print(result)
+        return result
+        # 2. ตรวจสอบว่ามี output หรือไม่
+        # ตรวจสอบว่า TextFSM ทำงานสำเร็จ (ได้ผลลัพธ์เป็น list)
+        # if not isinstance(result, list):
+        #     error_msg = "Error: TextFSM parsing failed. Check command or template."
+        #     print(error_msg)
+        #     return error_msg
+        
+        # for status in result:
+        #     print(status)
+    except Exception as e:
+        print(e)
+        return None
+    
+if __name__ == "__main__":
+    
+    get_motd("10.0.15.61")
