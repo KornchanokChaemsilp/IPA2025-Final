@@ -119,7 +119,7 @@ def disable(studentID, routerIP):
     interface_name = f"Loopback{studentID}"
 
     current_status = status(interface_name, routerIP)
-    if current_status == "no-return":
+    if "No" in current_status:
         print(f"Cannot shutdown: Interface loopback {studentID} (does not exist)")
         return f"Cannot shutdown: Interface loopback {studentID}"
     
