@@ -15,6 +15,7 @@ import xml.dom.minidom
 from dotenv import load_dotenv
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import netconf_final
+import restconf_final
 import netmiko_final
 import ansible_final
 
@@ -168,7 +169,16 @@ while True:
             elif routerIP and command == "status":
                 responseMessage = netconf_final.status(loopback_name, routerIP)
         elif method == "restconf":
-            pass
+            if routerIP and command == "create":
+                responseMessage = restconf_final.create(studentID, routerIP)    
+            elif routerIP and command == "delete":
+                responseMessage = restconf_final.delete(studentID, routerIP)
+            elif routerIP and command == "enable":
+                responseMessage = restconf_final.enable(studentID, routerIP)
+            elif routerIP and command == "disable":
+                responseMessage = restconf_final.disable(studentID, routerIP)
+            elif routerIP and command == "status":
+                responseMessage = restconf_final.status(loopback_name, routerIP)
         
         # elif command == "gigabit_status":
         #     responseMessage = netmiko_final.gigabit_status()
