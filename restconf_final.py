@@ -60,19 +60,30 @@ def create(studentID, routerIP):
         print('Error. Status Code: {}'.format(resp.status_code))
 
 
-# def delete():
-#     resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-#         <!!!REPLACEME with URL!!!>, 
-#         auth=basicauth, 
-#         headers=<!!!REPLACEME with HTTP Header!!!>, 
-#         verify=False
-#         )
+def delete(studentID, routerIP):
+    """ ลบ Loopback """
+    if_name = f"Loopback{studentID}"
+    current_status = status(if_name, routerIP)
+    
+    if "No" in current_status:
+        print(f"Cannot delete: Interface loopback {studentID} (does not exist)")
+        return f"Cannot delete: Interface loopback {studentID}"
+    
+    api_url = f"https://{routerIP}/restconf/data/ietf-interfaces:interfaces/interface={if_name}"
+    print(f"Attempting to DELETE {if_name}...")
+    
+    resp = requests.delete(
+        api_url, 
+        auth=basicauth, 
+        headers=headers, 
+        verify=False
+        )
 
-#     if(resp.status_code >= 200 and resp.status_code <= 299):
-#         print("STATUS OK: {}".format(resp.status_code))
-#         return "<!!!REPLACEME with proper message!!!>"
-#     else:
-#         print('Error. Status Code: {}'.format(resp.status_code))
+    if(resp.status_code >= 200 and resp.status_code <= 299):
+        print(f"Interface loopback {studentID}  is deleted successfully using Restconf")
+        return f"Interface loopback {studentID}  is deleted successfully using Restconf"
+    else:
+        print('Error. Status Code: {}'.format(resp.status_code))
 
 
 # def enable():
@@ -198,8 +209,8 @@ if __name__ == "__main__":
     # time.sleep(1) # รอ interface 'down'
 
     # print("\n(Step 3.2: Calling status function...)")
-    # test3_status = status(IF_NAME)
-    # print(f"==> Test 3 Result: '{test3_status}'")
+    test3_status = delete(studentID, routerIP)
+    print(f"==> Test 3 Result: '{test3_status}'")
     # if test3_status == "down":
     #     print("✅ PASS: ฟังก์ชันคืนค่า 'down' ถูกต้อง")
     # else:
