@@ -1,0 +1,859 @@
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:1a4b91f0-fc65-4152-b4e0-60d3c607e217">
+  <data>
+    <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+      <version>16.9</version>
+      <boot-start-marker/>
+      <boot-end-marker/>
+      <service>
+        <timestamps>
+          <debug>
+            <datetime>
+              <msec/>
+            </datetime>
+          </debug>
+          <log>
+            <datetime>
+              <msec/>
+            </datetime>
+          </log>
+        </timestamps>
+        <config/>
+      </service>
+      <platform>
+        <console xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-platform">
+          <output>virtual</output>
+        </console>
+      </platform>
+      <hostname>IPA-Router1</hostname>
+      <username>
+        <name>admin</name>
+        <privilege>15</privilege>
+        <secret>
+          <encryption>5</encryption>
+          <secret>$1$Jl9r$OrGIDSrnsFi4rtasQT0TI1</secret>
+        </secret>
+      </username>
+      <ip>
+        <domain>
+          <lookup>false</lookup>
+        </domain>
+        <forward-protocol>
+          <protocol>nd</protocol>
+        </forward-protocol>
+        <route>
+          <ip-route-interface-forwarding-list>
+            <prefix>0.0.0.0</prefix>
+            <mask>0.0.0.0</mask>
+            <fwd-list>
+              <fwd>10.0.15.1</fwd>
+            </fwd-list>
+          </ip-route-interface-forwarding-list>
+        </route>
+        <ssh>
+          <version>2</version>
+        </ssh>
+        <http xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-http">
+          <authentication>
+            <local/>
+          </authentication>
+          <server>true</server>
+          <secure-server>true</secure-server>
+          <client>
+            <source-interface>GigabitEthernet1</source-interface>
+          </client>
+        </http>
+      </ip>
+      <interface>
+        <GigabitEthernet>
+          <name>1</name>
+          <ip>
+            <address>
+              <primary>
+                <address>10.0.15.61</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+          <mop>
+            <enabled>false</enabled>
+            <sysid>false</sysid>
+          </mop>
+          <negotiation xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ethernet">
+            <auto>true</auto>
+          </negotiation>
+        </GigabitEthernet>
+        <Loopback>
+          <name>66070041</name>
+          <ip>
+            <address>
+              <primary>
+                <address>172.0.41.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070046</name>
+          <ip>
+            <address>
+              <primary>
+                <address>172.0.46.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070061</name>
+          <description>Loopback interface for student 66070061</description>
+          <shutdown/>
+          <ip>
+            <address>
+              <primary>
+                <address>172.0.61.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070084</name>
+          <description>Thanat's Loopback interface</description>
+          <ip>
+            <address>
+              <primary>
+                <address>172.0.84.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070107</name>
+          <description>Created by IPA2024 Bot for 66070107</description>
+          <ip>
+            <address>
+              <primary>
+                <address>172.1.7.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070200</name>
+          <description>My RESTCONF loopback</description>
+          <ip>
+            <address>
+              <primary>
+                <address>172.2.0.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070221</name>
+          <shutdown/>
+        </Loopback>
+        <Loopback>
+          <name>66070244</name>
+          <ip>
+            <address>
+              <primary>
+                <address>172.2.44.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+        <Loopback>
+          <name>66070246</name>
+          <description>Configured by RESTCONF</description>
+          <ip>
+            <address>
+              <primary>
+                <address>172.3.25.1</address>
+                <mask>255.255.255.0</mask>
+              </primary>
+            </address>
+          </ip>
+        </Loopback>
+      </interface>
+      <control-plane/>
+      <login>
+        <on-success>
+          <log/>
+        </on-success>
+      </login>
+      <multilink>
+        <bundle-name xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ppp">authenticated</bundle-name>
+      </multilink>
+      <redundancy/>
+      <spanning-tree>
+        <extend xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-spanning-tree">
+          <system-id/>
+        </extend>
+      </spanning-tree>
+      <subscriber>
+        <templating/>
+      </subscriber>
+      <crypto>
+        <pki xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-crypto">
+          <trustpoint>
+            <id>TP-self-signed-3513515870</id>
+            <enrollment>
+              <selfsigned/>
+            </enrollment>
+            <revocation-check>none</revocation-check>
+            <rsakeypair>
+              <key-label>TP-self-signed-3513515870</key-label>
+            </rsakeypair>
+            <subject-name>cn=IOS-Self-Signed-Certificate-3513515870</subject-name>
+          </trustpoint>
+          <certificate>
+            <chain>
+              <name>TP-self-signed-3513515870</name>
+              <certificate>
+                <serial>01</serial>
+                <certtype>self-signed</certtype>
+              </certificate>
+            </chain>
+          </certificate>
+        </pki>
+      </crypto>
+      <license>
+        <udi>
+          <pid>CSR1000V</pid>
+          <sn>99Q1DBY8BB6</sn>
+        </udi>
+      </license>
+      <line>
+        <console>
+          <first>0</first>
+          <stopbits>1</stopbits>
+        </console>
+        <vty>
+          <first>0</first>
+          <last>4</last>
+          <login>
+            <local/>
+          </login>
+          <transport>
+            <input>
+              <input>ssh</input>
+            </input>
+          </transport>
+        </vty>
+        <vty>
+          <first>5</first>
+          <last>60</last>
+          <login>
+            <local/>
+          </login>
+          <transport>
+            <input>
+              <input>ssh</input>
+            </input>
+          </transport>
+        </vty>
+      </line>
+      <diagnostic xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-diagnostics">
+        <bootup>
+          <level>minimal</level>
+        </bootup>
+      </diagnostic>
+    </native>
+    <licensing xmlns="http://cisco.com/ns/yang/cisco-smart-license">
+      <config>
+        <enable>false</enable>
+        <privacy>
+          <hostname>false</hostname>
+          <version>false</version>
+        </privacy>
+        <utility>
+          <utility-enable>false</utility-enable>
+        </utility>
+      </config>
+    </licensing>
+    <interfaces xmlns="http://openconfig.net/yang/interfaces">
+      <interface>
+        <name>GigabitEthernet1</name>
+        <config>
+          <name>GigabitEthernet1</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>10.0.15.61</ip>
+                  <config>
+                    <ip>10.0.15.61</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+        <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+          <config>
+            <mac-address>00:0c:29:89:98:af</mac-address>
+            <auto-negotiate>true</auto-negotiate>
+          </config>
+        </ethernet>
+      </interface>
+      <interface>
+        <name>Loopback66070041</name>
+        <config>
+          <name>Loopback66070041</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.0.41.1</ip>
+                  <config>
+                    <ip>172.0.41.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070046</name>
+        <config>
+          <name>Loopback66070046</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.0.46.1</ip>
+                  <config>
+                    <ip>172.0.46.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070061</name>
+        <config>
+          <name>Loopback66070061</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <description>Loopback interface for student 66070061</description>
+          <enabled>false</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <description>Loopback interface for student 66070061</description>
+              <enabled>false</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.0.61.1</ip>
+                  <config>
+                    <ip>172.0.61.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070084</name>
+        <config>
+          <name>Loopback66070084</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <description>Thanat's Loopback interface</description>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <description>Thanat's Loopback interface</description>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.0.84.1</ip>
+                  <config>
+                    <ip>172.0.84.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070107</name>
+        <config>
+          <name>Loopback66070107</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <description>Created by IPA2024 Bot for 66070107</description>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <description>Created by IPA2024 Bot for 66070107</description>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.1.7.1</ip>
+                  <config>
+                    <ip>172.1.7.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070200</name>
+        <config>
+          <name>Loopback66070200</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <description>My RESTCONF loopback</description>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <description>My RESTCONF loopback</description>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.2.0.1</ip>
+                  <config>
+                    <ip>172.2.0.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070221</name>
+        <config>
+          <name>Loopback66070221</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <enabled>false</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <enabled>false</enabled>
+            </config>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070244</name>
+        <config>
+          <name>Loopback66070244</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.2.44.1</ip>
+                  <config>
+                    <ip>172.2.44.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+      <interface>
+        <name>Loopback66070246</name>
+        <config>
+          <name>Loopback66070246</name>
+          <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+          <description>Configured by RESTCONF</description>
+          <enabled>true</enabled>
+        </config>
+        <subinterfaces>
+          <subinterface>
+            <index>0</index>
+            <config>
+              <index>0</index>
+              <description>Configured by RESTCONF</description>
+              <enabled>true</enabled>
+            </config>
+            <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <addresses>
+                <address>
+                  <ip>172.3.25.1</ip>
+                  <config>
+                    <ip>172.3.25.1</ip>
+                    <prefix-length>24</prefix-length>
+                  </config>
+                </address>
+              </addresses>
+            </ipv4>
+            <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+              <config>
+                <enabled>false</enabled>
+              </config>
+            </ipv6>
+          </subinterface>
+        </subinterfaces>
+      </interface>
+    </interfaces>
+    <network-instances xmlns="http://openconfig.net/yang/network-instance">
+      <network-instance>
+        <name>default</name>
+        <config>
+          <name>default</name>
+          <type xmlns:oc-ni-types="http://openconfig.net/yang/network-instance-types">oc-ni-types:DEFAULT_INSTANCE</type>
+          <description>default-vrf [read-only]</description>
+        </config>
+        <tables>
+          <table>
+            <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</protocol>
+            <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV4</address-family>
+            <config>
+              <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</protocol>
+              <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV4</address-family>
+            </config>
+          </table>
+          <table>
+            <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</protocol>
+            <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV6</address-family>
+            <config>
+              <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</protocol>
+              <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV6</address-family>
+            </config>
+          </table>
+          <table>
+            <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</protocol>
+            <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV4</address-family>
+            <config>
+              <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</protocol>
+              <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV4</address-family>
+            </config>
+          </table>
+          <table>
+            <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</protocol>
+            <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV6</address-family>
+            <config>
+              <protocol xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</protocol>
+              <address-family xmlns:oc-types="http://openconfig.net/yang/openconfig-types">oc-types:IPV6</address-family>
+            </config>
+          </table>
+        </tables>
+        <protocols>
+          <protocol>
+            <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</identifier>
+            <name>DEFAULT</name>
+            <config>
+              <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</identifier>
+              <name>DEFAULT</name>
+            </config>
+            <static-routes>
+              <static>
+                <prefix>0.0.0.0/0</prefix>
+                <config>
+                  <prefix>0.0.0.0/0</prefix>
+                </config>
+                <next-hops>
+                  <next-hop>
+                    <index>10.0.15.1</index>
+                    <config>
+                      <index>10.0.15.1</index>
+                      <next-hop>10.0.15.1</next-hop>
+                    </config>
+                  </next-hop>
+                </next-hops>
+              </static>
+            </static-routes>
+          </protocol>
+          <protocol>
+            <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</identifier>
+            <name>DEFAULT</name>
+            <config>
+              <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</identifier>
+              <name>DEFAULT</name>
+            </config>
+          </protocol>
+        </protocols>
+      </network-instance>
+    </network-instances>
+    <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+      <interface>
+        <name>GigabitEthernet1</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>10.0.15.61</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070041</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.0.41.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070046</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.0.46.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070061</name>
+        <description>Loopback interface for student 66070061</description>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>false</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.0.61.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070084</name>
+        <description>Thanat's Loopback interface</description>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.0.84.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070107</name>
+        <description>Created by IPA2024 Bot for 66070107</description>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.1.7.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070200</name>
+        <description>My RESTCONF loopback</description>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.2.0.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070221</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>false</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070244</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.2.44.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+      <interface>
+        <name>Loopback66070246</name>
+        <description>Configured by RESTCONF</description>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <enabled>true</enabled>
+        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+          <address>
+            <ip>172.3.25.1</ip>
+            <netmask>255.255.255.0</netmask>
+          </address>
+        </ipv4>
+        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
+      </interface>
+    </interfaces>
+    <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+      <enable-nacm>true</enable-nacm>
+      <read-default>deny</read-default>
+      <write-default>deny</write-default>
+      <exec-default>deny</exec-default>
+      <enable-external-groups>true</enable-external-groups>
+      <rule-list>
+        <name>admin</name>
+        <group>PRIV15</group>
+        <rule>
+          <name>permit-all</name>
+          <module-name>*</module-name>
+          <access-operations>*</access-operations>
+          <action>permit</action>
+        </rule>
+      </rule-list>
+    </nacm>
+    <routing xmlns="urn:ietf:params:xml:ns:yang:ietf-routing">
+      <routing-instance>
+        <name>default</name>
+        <description>default-vrf [read-only]</description>
+        <routing-protocols>
+          <routing-protocol>
+            <type>static</type>
+            <name>1</name>
+            <static-routes>
+              <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ipv4-unicast-routing">
+                <route>
+                  <destination-prefix>0.0.0.0/0</destination-prefix>
+                  <next-hop>
+                    <next-hop-address>10.0.15.1</next-hop-address>
+                  </next-hop>
+                </route>
+              </ipv4>
+            </static-routes>
+          </routing-protocol>
+        </routing-protocols>
+      </routing-instance>
+    </routing>
+  </data>
+</rpc-reply>

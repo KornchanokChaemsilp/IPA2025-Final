@@ -1,0 +1,44 @@
+
+- name: Save Running Config from Router
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+ 
+  tasks:
+   # Task 1: ดึง running config
+    - name: Get running config
+      cisco.ios.ios_command:
+        commands:
+          - show running-config
+      register: config_output
+ 
+   # --- TASK 2 (ใหม่) ---
+    # แยกส่วน hostname ออกมาจาก config
+    - name: Parse device hostname from config
+      set_fact:
+        # 1. ดึงเนื้อหา config
+        # 2. ใช้ regex_search หาบรรทัดที่ขึ้นต้นด้วย 'hostname '
+        # 3. ดึงเฉพาะคำที่ตามมา (กลุ่มที่ 1 หรือ '\\1')
+        # 4. เก็บผลลัพธ์ในตัวแปร 'device_hostname'
+        device_hostname: "{{ config_output.stdout[0] | regex_search('^hostname\\s+(\\S+)', '\\1', multiline=True) | first }}"
+
+    # --- TASK 3 (แก้ไข) ---
+    # บันทึก config โดยใช้ตัวแปรใหม่
+    - name: Save config to local file
+      copy:
+        content: "{{ config_output.stdout[0] }}"
+        
+        # เปลี่ยน 'inventory_hostname' เป็น 'device_hostname' ที่เราเพิ่งหาได้
+        dest: "./show_run_{{ student_id }}_{{ device_hostname }}.txt"
+      
+      delegate_to: localhost
+      register: file_save_result # <-- 3.1 ลงทะเบียนผลลัพธ์
+
+    # --- TASK 4 (ใหม่) ---
+    # พิมพ์ชื่อไฟล์ที่แท้จริงออกมาให้ Python รู้
+    - name: Print final filename for Python
+      debug:
+        # 4.1 เราใส่ "MAGIC_STRING" เพื่อให้ Python ค้นหาง่าย
+        msg: "FINAL_FILENAME_IS:{{ file_save_result.dest }}"
+
+      

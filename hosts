@@ -1,0 +1,8 @@
+[routers]
+IPA_router1 ansible_host=10.0.15.61
+
+[routers:vars]
+ansible_user=admin
+ansible_password=cisco
+ansible_network_os=cisco.ios.ios
+ansible_connection=network_cli
