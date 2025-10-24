@@ -86,40 +86,75 @@ def delete(studentID, routerIP):
         print('Error. Status Code: {}'.format(resp.status_code))
 
 
-# def enable():
-#     yangConfig = <!!!REPLACEME with YANG data!!!>
+def enable(studentID, routerIP):
+    """ ลบ Loopback """
+    if_name = f"Loopback{studentID}"
+    current_status = status(if_name, routerIP)
+    
+    if "No" in current_status:
+        print(f"Cannot enable: Interface loopback {studentID} (does not exist)")
+        return f"Cannot enable: Interface loopback {studentID}"
+    elif "enable" in current_status:
+        print(f"Interface loopback {studentID} is enabled successfully")
+        return f"Interface loopback {studentID} is enabled successfully"
+    
+    api_url = f"https://{routerIP}/restconf/data/ietf-interfaces:interfaces/interface={if_name}"
+    print(f"Attempting to ENABLE {if_name}...")
 
-#     resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-#         <!!!REPLACEME with URL!!!>, 
-#         data=json.dumps(<!!!REPLACEME with yangConfig!!!>), 
-#         auth=basicauth, 
-#         headers=<!!!REPLACEME with HTTP Header!!!>, 
-#         verify=False
-#         )
+    yangConfig = {
+      "ietf-interfaces:interface": {
+        "name": if_name,
+        "enabled": True 
+      }
+    }
 
-#     if(resp.status_code >= 200 and resp.status_code <= 299):
-#         print("STATUS OK: {}".format(resp.status_code))
-#         return "<!!!REPLACEME with proper message!!!>"
-#     else:
-#         print('Error. Status Code: {}'.format(resp.status_code))
+    resp = requests.patch(
+        api_url, 
+        data=json.dumps(yangConfig), 
+        auth=basicauth, 
+        headers=headers, 
+        verify=False
+        )
+
+    if(resp.status_code >= 200 and resp.status_code <= 299):
+        print(f"Interface loopback {studentID} is enabled successfully using Restconf")
+        return f"Interface loopback {studentID} is enabled successfully using Restconf"
+    else:
+        print('Error. Status Code: {}'.format(resp.status_code))
 
 
-# def disable():
-#     yangConfig = <!!!REPLACEME with YANG data!!!>
+def disable(studentID, routerIP):
+    """ ลบ Loopback """
+    if_name = f"Loopback{studentID}"
+    current_status = status(if_name, routerIP)
+    if "No" in current_status:
+        print(f"Cannot shutdown: Interface loopback {studentID} (does not exist)")
+        return f"Cannot shutdown: Interface loopback {studentID}"
+    
+    api_url = f"https://{routerIP}/restconf/data/ietf-interfaces:interfaces/interface={if_name}"
+    print(f"Attempting to DISABLE {if_name}...")
+    
+    yangConfig = {
+      "ietf-interfaces:interface": {
+        "name": if_name,
+        "enabled": False 
+      }
+    }
 
-#     resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-#         <!!!REPLACEME with URL!!!>, 
-#         data=json.dumps(<!!!REPLACEME with yangConfig!!!>), 
-#         auth=basicauth, 
-#         headers=<!!!REPLACEME with HTTP Header!!!>, 
-#         verify=False
-#         )
+    resp = requests.patch(
+        api_url, 
+        data=json.dumps(yangConfig), 
+        auth=basicauth, 
+        headers=headers, 
+        verify=False
+        )
 
-#     if(resp.status_code >= 200 and resp.status_code <= 299):
-#         print("STATUS OK: {}".format(resp.status_code))
-#         return "<!!!REPLACEME with proper message!!!>"
-#     else:
-#         print('Error. Status Code: {}'.format(resp.status_code))
+
+    if(resp.status_code >= 200 and resp.status_code <= 299):
+        print(f"Interface loopback {studentID} is shutdowned successfully using Restconf")
+        return f"Interface loopback {studentID} is shutdowned successfully using Restconf"
+    else:
+        print('Error. Status Code: {}'.format(resp.status_code))
 
 
 def status(interface_name, routerIP):
@@ -152,6 +187,8 @@ def status(interface_name, routerIP):
         # 2. ดึงค่าสถานะ (จะได้เป็น string "up" หรือ "down")
         admin_status = interface_state.get("admin-status")
         oper_status = interface_state.get("oper-status")
+        print(admin_status, oper_status)
+
         if admin_status == 'up' and oper_status == 'up':
             print("enable")
             return f"Interface loopback {student_id} is enabled (checked by Restconf)"
@@ -172,52 +209,12 @@ if __name__ == "__main__":
     routerIP = "10.0.15.62"
 
     print(f"--- 🧪 เริ่มต้นทดสอบฟังก์ชัน status กับ {IF_NAME} 🧪 ---")
-
-    # --- Scenario 1: ทดสอบ "DOES_NOT_EXIST" ---
-    # ลบ interface (ถ้ามี) เพื่อให้แน่ใจว่ามันไม่มีอยู่จริง
-    # print("\n--- [Test 1: 'DOES_NOT_EXIST'] ---")
-    # print("(Step 1.1: Cleanup - Deleting interface just in case...)")
-    # delete(IF_NAME) 
-    # time.sleep(1) # รอเราเตอร์ประมวลผลแป๊บนึง
-    
-    # print("\n(Step 1.2: Calling status function...)")
     test1_status = create(studentID, routerIP)
     print(f"==> Test 1 Result: '{test1_status}'")
-    # if test1_status == "DOES_NOT_EXIST":
-    #     print("✅ PASS: ฟังก์ชันคืนค่า 'DOES_NOT_EXIST' ถูกต้อง")
-    # else:
-    #     print("❌ FAIL: คาดหวัง 'DOES_NOT_EXIST'")
-
-    # --- Scenario 2: ทดสอบ "up" ---
-    # print("\n--- [Test 2: 'up'] ---")
-    # print(f"(Step 2.1: Creating interface {IF_NAME}...)")
-    # create_student_loopback(STUDENT_ID)
-    # time.sleep(1) # รอ interface 'up'
-
-    # print("\n(Step 2.2: Calling status function...)")
     test2_status = status(IF_NAME, routerIP)
     print(f"==> Test 2 Result: '{test2_status}'")
-    # if test2_status == "up":
-    #     print("✅ PASS: ฟังก์ชันคืนค่า 'up' ถูกต้อง")
-    # else:
-    #     print("❌ FAIL: คาดหวัง 'up'")
-
-    # --- Scenario 3: ทดสอบ "down" ---
-    # print("\n--- [Test 3: 'down'] ---")
-    # print(f"(Step 3.1: Disabling interface {IF_NAME}...)")
-    # disable(IF_NAME)
-    # time.sleep(1) # รอ interface 'down'
-
-    # print("\n(Step 3.2: Calling status function...)")
-    test3_status = delete(studentID, routerIP)
+    test3_status = disable(studentID, routerIP)
     print(f"==> Test 3 Result: '{test3_status}'")
-    # if test3_status == "down":
-    #     print("✅ PASS: ฟังก์ชันคืนค่า 'down' ถูกต้อง")
-    # else:
-    #     print("❌ FAIL: คาดหวัง 'down'")
-
-    # --- Cleanup (ลบทิ้งหลังทดสอบเสร็จ) ---
-    # print("\n--- [Cleanup] ---")
-    # print(f"(Step 4.1: Deleting {IF_NAME}...)")
-    # delete(IF_NAME)
+    test4_status = status(IF_NAME, routerIP)
+    print(f"==> Test 3 Result: '{test4_status}'")
     print("--- 🏁 สิ้นสุดการทดสอบ ---")
