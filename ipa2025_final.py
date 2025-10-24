@@ -163,8 +163,8 @@ while True:
 # 5. Complete the logic for each command
         if routerIP and command == "gigabit_status":
             responseMessage = netmiko_final.gigabit_status(routerIP)
-        elif command == "showrun":
-            responseMessage = ansible_final.showrun(studentID)
+        elif routerIP and command == "showrun":
+            responseMessage = ansible_final.showrun(studentID, routerIP)
         elif routerIP and command == "motd" and (len(args_list) < 3):
             responseMessage = netmiko_final.get_motd(routerIP)
         elif routerIP and command == "motd" and args_list[2]:

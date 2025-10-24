@@ -1,6 +1,6 @@
 
 - name: Save Running Config from Router
-  hosts: routers
+  hosts: "{{ router_ip }}" # <-- แก้ไขตรงนี้
   gather_facts: false
   connection: network_cli
  

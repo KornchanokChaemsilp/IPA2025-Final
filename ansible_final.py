@@ -12,10 +12,19 @@ def showrun(student_id, router_ip):
 
     result = subprocess.run(command, capture_output=True, text=True)
 
-    result = result.stdout
-    print("--- Ansible Output ---")
-    print(result)
+    print("--- Ansible STDOUT (Output) ---")
+    print(result.stdout)  # <-- พิมพ์จาก .stdout ของ Object โดยตรง
+    print("-------------------------------")
+
+    if result.stderr:     # <-- เช็ค .stderr จาก Object โดยตรง
+        print("--- Ansible STDERR (Error) ---")
+        print(result.stderr)
+        print("------------------------------")
+    
+    print(f"Ansible Exit Code: {result.returncode}") 
     print("----------------------")
+
+    result = result.stdout
 
     # 1. ตรวจสอบว่ามี task 'failed=1' หรือ 'unreachable=1' หรือไม่
     if "failed=1" in result or "unreachable=1" in result:
