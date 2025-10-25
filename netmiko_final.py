@@ -74,8 +74,19 @@ def get_motd(router_ip):
             print(f"✅ Connected. Sending command: '{cmd}'")
             # .strip() เพื่อลบบรรทัดว่างที่ไม่จำเป็นหน้า-หลัง
             result = ssh.send_command(cmd, use_textfsm=True)
+
+        # 2.2 (ส่วนที่เพิ่มตามคำขอ) ตรวจสอบว่า list ว่างเปล่าหรือไม่
+        # ถ้า list ว่าง = command ทำงาน แต่ TextFSM ไม่เจอ MOTD ที่ตั้งค่าไว้
+        if not result: # 'if not result:' จะเป็น True ถ้า result คือ []
+            error_msg = "Error: No MOTD Configured"
+            print(f"✅ Command successful, but {error_msg}")
+            return error_msg
+
+        # 2.3 ถ้าทุกอย่างปกติ (ได้ list ที่มีข้อมูล)
+        print(f"✅ MOTD Found. Parsed data:")
         print(result)
-        return result
+        return result # คืนค่า list ที่มี dictionary ของ MOTD
+
         # 2. ตรวจสอบว่ามี output หรือไม่
         # ตรวจสอบว่า TextFSM ทำงานสำเร็จ (ได้ผลลัพธ์เป็น list)
         # if not isinstance(result, list):
