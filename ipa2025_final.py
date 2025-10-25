@@ -229,7 +229,7 @@ while True:
                 # เตรียมข้อมูลสำหรับส่งแบบ Multipart (ส่งไฟล์)
                 postData = {
                     "roomId": roomIdToGetMessages,
-                    "text": f"Here is the requested config: {filename}",
+                    # "text": f"Here is the requested config: {filename}",
                     "files": (filename, fileobject, filetype),
                 }
                 postData = MultipartEncoder(fields=postData)
